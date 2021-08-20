@@ -1,0 +1,19 @@
+{
+  "name": "la-back",
+  "version": "1.0.0",
+  "description": "la-back",
+  "main": "index.js",
+  "repository": "https://gitlab.com/amber-software/liquity-app/la-back.git",
+  "author": "HawkPrimo",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "http": "^0.0.1-security",
+    "http-errors": "^1.8.0",
+    "mongoose": "^5.13.7",
+    "node": "^16.6.1"
+  }
+}
