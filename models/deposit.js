@@ -1,10 +1,10 @@
-var mongoConnection = require('../db');
+const mongoConnection = require('../db');
 
 class CurrentModel {
 
   constructor(dbconn) {
     this.db = dbconn;
-    this.modelName = 'user';
+    this.modelName = 'deposit';
     this.pageCount = 10;
     this.attributes = {
       user: {

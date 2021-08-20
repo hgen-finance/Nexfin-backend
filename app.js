@@ -20,7 +20,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 
 app.use('/trove', troveRouter);
-app.use('/deposit', troveRouter);
+app.use('/deposit', depositRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

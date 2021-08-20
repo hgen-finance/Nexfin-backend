@@ -1,6 +1,5 @@
 const {validationResult} = require('express-validator');
-var depositModel = require('../models/deposit');
-const errorLogger = require('../utils/errorLogger')
+let depositModel = require('../models/deposit');
 
 class depositController {
   async upsert(req, res) {
@@ -15,10 +14,9 @@ class depositController {
       deposit = deposit.trim().toLowerCase();
       let model = depositModel.findOrCreateByAddress(user, deposit)
 
-      res.json({model: depositModel});
+      res.json({model: model});
     } catch (err) {
       console.log(err);
-      errorLogger.error(err)
       res.status(400).json({error: 'Error: ' + err});
     }
   }
@@ -38,7 +36,6 @@ class depositController {
       res.json({model: depositModel});
     } catch (err) {
       console.log(err);
-      errorLogger.error(err)
       res.status(400).json({error: 'Error: ' + err});
     }
   }

@@ -4,7 +4,7 @@ class CurrentModel {
 
   constructor(dbconn) {
     this.db = dbconn;
-    this.modelName = 'user';
+    this.modelName = 'trove';
     this.pageCount = 10;
     this.attributes = {
       user: {

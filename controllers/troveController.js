@@ -1,6 +1,5 @@
 const {validationResult} = require('express-validator');
-var troveModel = require('../models/trove');
-const errorLogger = require('../utils/errorLogger')
+let troveModel = require('../models/trove');
 
 class troveController {
   async upsert(req, res) {
@@ -15,10 +14,9 @@ class troveController {
       trove = trove.trim().toLowerCase();
       let model = troveModel.findOrCreateByAddress(user, trove)
 
-      res.json({model: troveModel});
+      res.json({model: model});
     } catch (err) {
       console.log(err);
-      errorLogger.error(err)
       res.status(400).json({error: 'Error: ' + err});
     }
   }
@@ -38,7 +36,6 @@ class troveController {
       res.json({model: troveModel});
     } catch (err) {
       console.log(err);
-      errorLogger.error(err)
       res.status(400).json({error: 'Error: ' + err});
     }
   }
