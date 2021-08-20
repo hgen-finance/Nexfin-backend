@@ -1,0 +1,23 @@
+version: '3'
+services:
+  node-liquity:
+    container_name: node-liquity
+    restart: always
+    build: .
+    links:
+      - mongo-liquity:mongo-liquity
+    depends_on:
+      - mongo-liquity
+    ports:
+      - 1355:3000
+    volumes:
+      - .:/app
+  mongo-liquity:
+    container_name: mongo-liquity
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: asPoWhjklg46t4djei1hi
+    volumes:
+      - ../mongo/data:/data/db

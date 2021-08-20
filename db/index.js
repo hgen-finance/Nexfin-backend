@@ -1,13 +1,6 @@
-var mongoose = require('mongoose');
-var config = require('./config');
+require('dotenv').config()
+const mongoose = require('mongoose')
 
-let connectString = `mongodb://${config.user}:${config.password}@${config.host}/${config.dbname}`;
+mongoose.connect(process.env.MONGO_DB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
 
-mongoose.connect(connectString,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-mongoose.set('useCreateIndex', true);
-
-module.exports = mongoose;
+module.exports = mongoose

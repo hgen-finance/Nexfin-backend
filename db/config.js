@@ -1,6 +1,6 @@
 module.exports = {
     user: 'root',
-    password: 'root',
-    host: 'localhost:27017',
-    dbname: 'travel'
+    password: 'pass4dev',
+    host: 'ambersoft.llc:27017',
+    dbname: 'liquity'
 };
