@@ -5,6 +5,7 @@ const {withdrawDeposit, sendSol, claimDepositReward} = require("../services/prog
 const {mintToken} = require("../services/gens")
 const {BN} = require('bn.js')
 const {mintGovernanceToken} = require("../services/hgen")
+const {increaseCounters, decreaseCounters} = require("../services/counters")
 
 class depositController {
   async upsert(req, res) {
@@ -22,6 +23,13 @@ class depositController {
 
         let model = await depositModel.findOrCreateByAddress(user, deposit)
 
+        increaseCounters({
+          coin: 0,
+          token: 0,
+          governance: 0,
+          deposit: depositData.tokenAmount,
+          trove: 0
+        })
         return res.json({model: model})
       }
 
@@ -50,6 +58,14 @@ class depositController {
         const withdrawRes = await withdrawDeposit({deposit, amount})
         if (withdrawRes !== null) {
           await mintToken({address: withdrawRes.bank, amount: (oldAmount - withdrawRes.tokenAmount)})
+
+          decreaseCounters({
+            coin: 0,
+            token: 0,
+            governance: 0,
+            deposit: amount,
+            trove: 0
+          })
         }
       }
 
