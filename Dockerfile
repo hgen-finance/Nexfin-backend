@@ -10,5 +10,6 @@ ENV PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
 COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install -g nodemon
 RUN npm install
+RUN node init.js
 #COPY . .
 CMD ["npm", "start"]
