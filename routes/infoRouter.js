@@ -4,7 +4,7 @@ const notificationModel = require('../models/notification')
 
 router.get('/', [
 ], (req, res) => {
-  res.json(require('counters.json'))
+  res.json(require('../counters.json'))
 })
 
 router.post('/email', [

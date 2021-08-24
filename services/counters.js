@@ -8,7 +8,7 @@ const increaseCounters = ({
   deposit,
   trove
 }) => {
-  const data = require('counters.json')
+  const data = require('../counters.json')
 
   data.troveTotal = data.troveTotal + trove;
   data.depositTotal = data.depositTotal + deposit;
@@ -26,7 +26,7 @@ const decreaseCounters = ({
   deposit,
   trove
 }) => {
-  const data = require('counters.json')
+  const data = require('../counters.json')
 
   data.troveTotal = data.troveTotal - trove;
   data.depositTotal = data.depositTotal - deposit;
