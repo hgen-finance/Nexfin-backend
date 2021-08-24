@@ -42,6 +42,17 @@ class troveController {
     }
   }
 
+  async getList(req, res) {
+    try {
+      const page = req.query.page;
+
+      res.json(troveModel.getList(page))
+    } catch (err) {
+      console.log(err)
+      res.status(400).json({error: 'Error: ' + err})
+    }
+  }
+
   async liquidateTrove(req, res) {
     try {
       let trove = req.body.trove.trim()

@@ -18,4 +18,9 @@ router.post('/liquidate', [
   check('trove', 'trove address is empty').notEmpty()
 ], controller.liquidateTrove);
 
+
+router.get('/list', [
+  check('page', 'trove address is empty').notEmpty()
+], controller.getList);
+
 module.exports = router;
