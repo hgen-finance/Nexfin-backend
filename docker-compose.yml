@@ -20,7 +20,5 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: asPoWhjklg46t4djei1hi
-    ports:
-      - 27020:27017
     volumes:
       - ../mongo/data:/data/db
