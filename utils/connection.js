@@ -22,6 +22,7 @@ const DEPOSIT_ACCOUNT_DATA_LAYOUT = BufferLayout.struct([
   uint64("rewardGovernanceTokenAmount"),
   uint64("rewardCoinAmount"),
   publicKey("bank"),
+  publicKey("governanceBank"),
   publicKey("owner"),
 ])
 

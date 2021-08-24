@@ -1,8 +1,10 @@
 const {validationResult} = require('express-validator')
 let depositModel = require('../models/deposit')
 const {getDeposit} = require("../services/deposit")
-const {withdrawDeposit} = require("../services/program")
+const {withdrawDeposit, sendSol, claimDepositReward} = require("../services/program")
 const {mintToken} = require("../services/gens")
+const {BN} = require('bn.js')
+const {mintGovernanceToken} = require("../services/hgen")
 
 class depositController {
   async upsert(req, res) {
@@ -41,7 +43,7 @@ class depositController {
       deposit = deposit.trim()
       let model = await depositModel.getByDeposit(deposit)
 
-      const depositData = getDeposit({deposit})
+      const depositData = await getDeposit({deposit})
 
       if (depositData !== null) {
         const oldAmount = (await depositData).tokenAmount
@@ -49,6 +51,38 @@ class depositController {
         if (withdrawRes !== null) {
           await mintToken({address: withdrawRes.bank, amount: (oldAmount - withdrawRes.tokenAmount)})
         }
+      }
+
+      res.json({model})
+
+    } catch (err) {
+      console.log(err)
+      res.status(400).json({error: 'Error: ' + err})
+    }
+  }
+
+  async claim(req, res) {
+    try {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        return res.status(400).json({error: "Error:", errors})
+      }
+      let deposit = req.body.deposit
+      deposit = deposit.trim()
+      let model = await depositModel.getByDeposit(deposit)
+
+      const depositData = await getDeposit({deposit})
+
+      if (depositData !== null) {
+        const governance = (depositData).rewardGovernanceTokenAmount
+        const coin = (depositData).rewardCoinAmount
+        const token = (depositData).rewardTokenAmount
+        console.log({depositData})
+
+        await mintToken({address: depositData.bank, amount: new BN(token.toString()).toNumber() / 1000000000})
+        await mintGovernanceToken({address: depositData.governanceBank, amount: new BN(governance.toString()).toNumber() / 1000000000})
+        await sendSol({address: depositData.owner, sol: new BN(coin.toString()).toNumber() / 1000000000})
+        console.log(await claimDepositReward({deposit}))
       }
 
       res.json({model})

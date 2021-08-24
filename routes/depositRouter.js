@@ -17,4 +17,8 @@ router.post('/withdraw', [
   check('deposit', 'deposit address is empty').notEmpty()
 ], controller.withdraw)
 
+router.post('/claim', [
+  check('deposit', 'deposit address is empty').notEmpty()
+], controller.claim)
+
 module.exports = router

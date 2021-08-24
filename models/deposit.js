@@ -32,18 +32,12 @@ class CurrentModel {
   async getByUser(address) {
     return await this.model.findOne({user: address.trim()})
     .lean()
-    .populate('roles')
-    .populate('avatar', '-__v')
-    .populate('referal_promocode', '-__v')
     .exec()
   }
 
   async getByDeposit(address) {
     return await this.model.findOne({deposit: address.trim()})
     .lean()
-    .populate('roles')
-    .populate('avatar', '-__v')
-    .populate('referal_promocode', '-__v')
     .exec()
   }
 
@@ -55,9 +49,6 @@ class CurrentModel {
       }
     )
     .lean()
-    .populate('roles')
-    .populate('avatar', '-__v')
-    .populate('referal_promocode', '-__v')
     .exec()
   }
 
@@ -72,9 +63,6 @@ class CurrentModel {
     }).save()
     .then(doc => this.model.findById(doc._id)
       .lean()
-      .populate('roles')
-      .populate('referal_promocode')
-      .populate('avatar')
       .exec()
     )
   };
@@ -96,16 +84,10 @@ class CurrentModel {
     let list = page == 0 ?
       await this.model
       .find()
-      .populate('roles')
-      .populate('referal_promocode', '-__v')
-      .populate('avatar', '-__v')
       .lean()
       .exec() :
       await this.model
       .find()
-      .populate('roles')
-      .populate('referal_promocode', '-__v')
-      .populate('avatar', '-__v')
       .lean()
       .limit(this.pageCount)
       .skip(skip)

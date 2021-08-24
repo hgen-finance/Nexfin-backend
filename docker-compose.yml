@@ -12,6 +12,7 @@ services:
       - 1355:3000
     volumes:
       - .:/app
+      - ./logs:/root/.npm/_logs
   mongo-liquity:
     container_name: mongo-liquity
     image: mongo
@@ -19,5 +20,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: asPoWhjklg46t4djei1hi
+    ports:
+      - 27020:27017
     volumes:
       - ../mongo/data:/data/db
