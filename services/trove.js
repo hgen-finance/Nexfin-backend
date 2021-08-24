@@ -2,15 +2,18 @@ const {connection, TROVE_ACCOUNT_DATA_LAYOUT} = require("../utils/connection")
 const {PublicKey} = require("@solana/web3.js")
 const {BN} = require("bn.js")
 const getTrove = async ({trove}) => {
-  return decodeTrove({trove, encodedTroveState: (await connection.getAccountInfo(new PublicKey(trove), 'singleGossip'))?.data})
+  return decodeTrove({
+    trove,
+    encodedTroveState: (await connection.getAccountInfo(new PublicKey(trove), 'singleGossip'))?.data
+  })
 }
 
 const decodeTrove = ({encodedTroveState, trove}) => {
-  if(!encodedTroveState) {
+  if (!encodedTroveState) {
     return null
   }
 
-  const decodedTroveState = TROVE_ACCOUNT_DATA_LAYOUT.decode(encodedTroveState);
+  const decodedTroveState = TROVE_ACCOUNT_DATA_LAYOUT.decode(encodedTroveState)
 
   return {
     troveAccountPubkey: trove,

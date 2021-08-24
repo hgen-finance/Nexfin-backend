@@ -2,15 +2,18 @@ const {connection, DEPOSIT_ACCOUNT_DATA_LAYOUT} = require("../utils/connection")
 const {PublicKey} = require("@solana/web3.js")
 const {BN} = require("bn.js")
 const getDeposit = async ({deposit}) => {
-  return decodeDeposit({deposit, encodedDepositState: (await connection.getAccountInfo(new PublicKey(deposit), 'singleGossip'))?.data})
+  return decodeDeposit({
+    deposit,
+    encodedDepositState: (await connection.getAccountInfo(new PublicKey(deposit), 'singleGossip'))?.data
+  })
 }
 
 const decodeDeposit = ({encodedDepositState, deposit}) => {
-  if(!encodedDepositState) {
+  if (!encodedDepositState) {
     return null
   }
 
-  const decodedDepositState = DEPOSIT_ACCOUNT_DATA_LAYOUT.decode(encodedDepositState);
+  const decodedDepositState = DEPOSIT_ACCOUNT_DATA_LAYOUT.decode(encodedDepositState)
 
   return {
     depositAccountPubkey: deposit,
@@ -21,7 +24,7 @@ const decodeDeposit = ({encodedDepositState, deposit}) => {
     rewardCoinAmount: new BN(decodedDepositState.rewardCoinAmount, 10, 'le').toNumber(),
     bank: new PublicKey(decodedDepositState.bank).toBase58(),
     owner: new PublicKey(decodedDepositState.owner).toBase58(),
-  };
+  }
 }
 
 

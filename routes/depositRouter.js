@@ -1,20 +1,20 @@
-const express = require('express');
-const router = express.Router();
-const controller = require('../controllers/depController');
-const {check} = require('express-validator');
+const express = require('express')
+const router = express.Router()
+const controller = require('../controllers/depController')
+const {check} = require('express-validator')
 
 router.post('/upsert', [
   check('deposit', 'deposit address is empty').notEmpty()
-], controller.upsert);
+], controller.upsert)
 
 router.post('/get-by-user-and-deposit', [
   check('user', 'user address is empty').notEmpty(),
   check('deposit', 'deposit address is empty').notEmpty()
-], controller.getByUserAndDeposit);
+], controller.getByUserAndDeposit)
 
 router.post('/withdraw', [
   check('amount', 'user address is empty').notEmpty(),
   check('deposit', 'deposit address is empty').notEmpty()
-], controller.withdraw);
+], controller.withdraw)
 
-module.exports = router;
+module.exports = router
