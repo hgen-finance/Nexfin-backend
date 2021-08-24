@@ -7,7 +7,7 @@
   "author": "HawkPrimo",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bin/www"
+    "start": "node init.js && node bin/www"
   },
   "license": "MIT",
   "dependencies": {
