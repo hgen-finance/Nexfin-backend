@@ -1,6 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGO_DB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
 
 module.exports = mongoose

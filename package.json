@@ -11,6 +11,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@solana/web3.js": "^1.24.1",
+    "bn.js": "^5.2.0",
+    "buffer-layout": "^1.2.2",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
