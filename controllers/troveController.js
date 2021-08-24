@@ -62,7 +62,7 @@ class troveController {
       const troveModelData = await troveModel.getByTrove(trove)
 
       if(troveModelData) {
-        await troveModel.deleteOne({ trove })
+        await troveModel.model.deleteOne({ trove })
       }
 
       if (troveData !== null && troveData.isReceived && !troveData.isLiquidated) {
