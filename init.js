@@ -23,7 +23,7 @@ const promisifyExec = (command) => {
   const resKey = await promisifyExec(setSolanaConfig)
   console.log(resKey)
 
-  if(!fs.existsSync('./tokens.json')) {
+  if(!fs.existsSync('./tokens.json') && fs.readFileSync('./tokens.json').toString() !== '') {
     // Create gens
     const createTokenCommand = 'spl-token create-token';
     const createGens = await promisifyExec(createTokenCommand);

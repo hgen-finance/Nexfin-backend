@@ -3,7 +3,6 @@ const {sysAccount, programId, connection} = require("../utils/connection")
 const {getTrove} = require("./trove")
 const {getDeposit} = require("./deposit")
 const {BN} = require('bn.js')
-const tokens = require("../tokens.json")
 const {promisifyExec} = require("../utils/process")
 
 const setTroveReceived = async ({trove}) => {
