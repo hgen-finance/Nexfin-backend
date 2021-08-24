@@ -46,7 +46,7 @@ class troveController {
     try {
       const page = req.query.page;
 
-      res.json(troveModel.getList(page))
+      res.json(await troveModel.getList(page))
     } catch (err) {
       console.log(err)
       res.status(400).json({error: 'Error: ' + err})
