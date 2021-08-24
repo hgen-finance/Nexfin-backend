@@ -9,7 +9,7 @@ router.post('/upsert', [
 ], controller.upsert);
 
 
-router.post('/', [
+router.get('/', [
   check('user', 'user address is empty').notEmpty(),
 ], controller.getByUserAndTrove);
 

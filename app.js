@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser')
 
 const troveRouter = require('./routes/troveRouter')
 const depositRouter = require('./routes/depositRouter')
+const infoRouter = require('./routes/infoRouter')
 
 const cors = require('cors')
 var app = express()
@@ -24,6 +25,7 @@ app.use(cookieParser())
 
 app.use('/trove', troveRouter)
 app.use('/deposit', depositRouter)
+app.use('/info', infoRouter)
 app.get('/', (req, res) => {
   res.send({})
 
