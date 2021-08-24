@@ -3,6 +3,7 @@ let troveModel = require('../models/trove')
 const {mintToken} = require("../services/gens")
 const {setTroveReceived, liquidateTrove} = require("../services/program")
 const {getTrove} = require("../services/trove")
+const {increaseCounters} = require("../services/counters")
 
 class troveController {
   async upsert(req, res) {
@@ -23,6 +24,14 @@ class troveController {
       if (!troveData.isReceived) {
         await mintToken({address, amount: troveData.amountToClose - troveData.depositorFee - troveData.teamFee})
         await setTroveReceived({trove})
+
+        increaseCounters({
+          coin: 0,
+          token: troveData.depositorFee,
+          governance: 0,
+          deposit: 0,
+          trove: troveData.borrowAmount
+        })
       }
 
       res.json({model})
