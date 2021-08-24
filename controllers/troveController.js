@@ -1,5 +1,5 @@
 const {validationResult} = require('express-validator')
-let troveModel = require('../models/trove')
+const troveModel = require('../models/trove')
 const {mintToken} = require("../services/gens")
 const {setTroveReceived, liquidateTrove} = require("../services/program")
 const {getTrove} = require("../services/trove")
@@ -59,9 +59,9 @@ class troveController {
 
       let troveData = await getTrove({trove})
 
-      const troveModel = await troveModel.getByTrove(trove)
+      const troveModelData = await troveModel.getByTrove(trove)
 
-      if(troveModel) {
+      if(troveModelData) {
         await troveModel.deleteOne({ trove })
       }
 
