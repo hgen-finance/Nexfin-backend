@@ -12,4 +12,5 @@ RUN npm install -g nodemon
 RUN npm install
 COPY . .
 RUN node init.js
+COPY . .
 CMD ["npm", "start"]
