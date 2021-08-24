@@ -8,7 +8,7 @@ const increaseCounters = ({
   deposit,
   trove
 }) => {
-  const data = require('../counters.json')
+  const data = require('counters.json')
 
   data.troveTotal = data.troveTotal + trove;
   data.depositTotal = data.depositTotal + deposit;
@@ -16,7 +16,7 @@ const increaseCounters = ({
   data.governance = new BN(data.governance).add(new BN(governance).mul(new BN('1000000000')))
   data.token = new BN(data.token).add(new BN(token).mul(new BN('1000000000')))
 
-  fs.writeFileSync('../counters.json', JSON.stringify(data))
+  fs.writeFileSync('counters.json', JSON.stringify(data))
 }
 
 const decreaseCounters = ({
@@ -26,7 +26,7 @@ const decreaseCounters = ({
   deposit,
   trove
 }) => {
-  const data = require('../counters.json')
+  const data = require('counters.json')
 
   data.troveTotal = data.troveTotal - trove;
   data.depositTotal = data.depositTotal - deposit;
@@ -34,7 +34,7 @@ const decreaseCounters = ({
   data.governance = new BN(data.governance).sub(new BN(governance).mul(new BN('1000000000')))
   data.token = new BN(data.token).sub(new BN(token).mul(new BN('1000000000')))
 
-  fs.writeFileSync('../counters.json', JSON.stringify(data))
+  fs.writeFileSync('counters.json', JSON.stringify(data))
 }
 
 module.exports = {
