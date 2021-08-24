@@ -7,9 +7,8 @@ router.post('/upsert', [
   check('deposit', 'deposit address is empty').notEmpty()
 ], controller.upsert)
 
-router.post('/get-by-user-and-deposit', [
+router.post('/', [
   check('user', 'user address is empty').notEmpty(),
-  check('deposit', 'deposit address is empty').notEmpty()
 ], controller.getByUserAndDeposit)
 
 router.post('/withdraw', [

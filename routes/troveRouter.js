@@ -9,9 +9,8 @@ router.post('/upsert', [
 ], controller.upsert);
 
 
-router.post('/get-by-user-and-trove', [
+router.post('/', [
   check('user', 'user address is empty').notEmpty(),
-  check('trove', 'trove address is empty').notEmpty()
 ], controller.getByUserAndTrove);
 
 

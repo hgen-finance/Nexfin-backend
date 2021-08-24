@@ -59,10 +59,8 @@ class troveController {
         return res.status(400).json({error: "Error:", errors})
       }
       let user = req.body.user
-      let trove = req.body.trove
       user = user.trim()
-      trove = trove.trim()
-      let model = troveModel.getByUserAndTrove(user, trove)
+      let model = troveModel.getByUser(user)
 
       res.json({model})
     } catch (err) {

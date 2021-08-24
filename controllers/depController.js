@@ -100,12 +100,10 @@ class depositController {
         return res.status(400).json({error: "Error:", errors})
       }
       let user = req.body.user
-      let deposit = req.body.deposit
       user = user.trim()
-      deposit = deposit.trim()
-      let model = depositModel.getByUserAndDeposit(user, deposit)
+      let model = depositModel.getByUser(user)
 
-      res.json({model: depositModel})
+      res.json({model})
     } catch (err) {
       console.log(err)
       res.status(400).json({error: 'Error: ' + err})
