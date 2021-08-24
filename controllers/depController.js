@@ -117,7 +117,7 @@ class depositController {
       }
       let user = req.query.user
       user = user.trim()
-      let model = depositModel.getByUser(user)
+      let model = await depositModel.getByUser(user)
 
       res.json({model})
     } catch (err) {

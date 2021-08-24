@@ -97,7 +97,7 @@ class troveController {
       }
       let user = req.query.user
       user = user.trim()
-      let model = troveModel.getByUser(user)
+      let model = await troveModel.getByUser(user)
 
       res.json({model})
     } catch (err) {
