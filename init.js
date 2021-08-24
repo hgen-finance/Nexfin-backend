@@ -15,7 +15,7 @@ const promisifyExec = (command) => {
 }
 
 (async () => {
-  const setSolana = 'solana config set --url http://192.168.1.101:8899'
+  const setSolana = 'solana config set --url devnet'
   const res = await promisifyExec(setSolana)
   console.log(res)
 
