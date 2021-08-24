@@ -12,9 +12,9 @@ const increaseCounters = ({
 
   data.troveTotal = data.troveTotal + trove;
   data.depositTotal = data.depositTotal + deposit;
-  data.coin = new BN(data.coin).add(new BN(coin).mul(new BN('1000000000')))
-  data.governance = new BN(data.governance).add(new BN(governance).mul(new BN('1000000000')))
-  data.token = new BN(data.token).add(new BN(token).mul(new BN('1000000000')))
+  data.coin = new BN(data.coin).add(new BN(coin).mul(new BN('1000000000'))).toNumber()
+  data.governance = new BN(data.governance).add(new BN(governance).mul(new BN('1000000000'))).toNumber()
+  data.token = new BN(data.token).add(new BN(token).mul(new BN('1000000000'))).toNumber()
 
   fs.writeFileSync('counters.json', JSON.stringify(data))
 }
@@ -30,9 +30,9 @@ const decreaseCounters = ({
 
   data.troveTotal = data.troveTotal - trove;
   data.depositTotal = data.depositTotal - deposit;
-  data.coin = new BN(data.coin).sub(new BN(coin).mul(new BN('1000000000')))
-  data.governance = new BN(data.governance).sub(new BN(governance).mul(new BN('1000000000')))
-  data.token = new BN(data.token).sub(new BN(token).mul(new BN('1000000000')))
+  data.coin = new BN(data.coin).sub(new BN(coin).mul(new BN('1000000000'))).toNumber()
+  data.governance = new BN(data.governance).sub(new BN(governance).mul(new BN('1000000000'))).toNumber()
+  data.token = new BN(data.token).sub(new BN(token).mul(new BN('1000000000'))).toNumber()
 
   fs.writeFileSync('counters.json', JSON.stringify(data))
 }
