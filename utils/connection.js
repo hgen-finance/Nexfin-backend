@@ -43,6 +43,6 @@ module.exports = {
   TROVE_ACCOUNT_DATA_LAYOUT,
   DEPOSIT_ACCOUNT_DATA_LAYOUT,
   connection,
-  programId: 'GgMKgNMEY8QTHFXC5xSkMAKaYQqkiZ3WqFbZaBPRFwrA',
+  programId: '5uqKRHcKyEJ4Pw4cRVus32a1wfEMGdHpgMa1FLqoQaN8',
   sysAccount: new Account(require("../rootDir/my_wallet.json"))
 }
