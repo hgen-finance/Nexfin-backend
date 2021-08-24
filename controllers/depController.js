@@ -115,7 +115,7 @@ class depositController {
       if (!errors.isEmpty()) {
         return res.status(400).json({error: "Error:", errors})
       }
-      let user = req.body.user
+      let user = req.query.user
       user = user.trim()
       let model = depositModel.getByUser(user)
 
