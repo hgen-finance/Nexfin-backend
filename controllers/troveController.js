@@ -44,9 +44,24 @@ class troveController {
 
   async getList(req, res) {
     try {
-      const page = req.query.page;
+      const pageCount = troveModel.pageCount
+      const {page = 1, query} = req.query
+      const entities = await troveModel.getAll(query)
+      const result = []
+      
+      for (const entity of entities) {
+        try {
+          const troveData = await getTrove({trove: entity.trove})
+          result.push({ ...entity, ...troveData })
+        } catch (err) {
+          continue
+        }
+      }
 
-      res.json(await troveModel.getList(page))
+      res.json({
+        entities: result.slice((page - 1) * pageCount, page * pageCount),
+        total_count: result.length,
+      })
     } catch (err) {
       console.log(err)
       res.status(400).json({error: 'Error: ' + err})

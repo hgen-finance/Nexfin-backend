@@ -16,8 +16,18 @@ class CurrentModel {
         unique: true,
         required: true
       },
+      createdAt: Date,
     }
-    this.model = this.db.model(this.modelName, new this.db.Schema(this.attributes))
+
+    const Schema = new this.db.Schema(this.attributes)
+
+    Schema.pre('save', function () {
+      if (this.isNew) {
+        this.createdAt = new Date()
+      }
+    })
+
+    this.model = this.db.model(this.modelName, Schema)
   }
 
   async getById(id) {
@@ -78,26 +88,38 @@ class CurrentModel {
     return await this.create(address, deposit)
   }
 
-  async getList(page) {
+  async getList(page, query) {
     let skip = (page - 1) * this.pageCount
-    let count = await this.model.countDocuments()
-    let list = page == 0 ?
-      await this.model
-      .find()
-      .lean()
-      .exec() :
-      await this.model
-      .find()
-      .lean()
-      .limit(this.pageCount)
-      .skip(skip)
-      .exec()
+    const filter = {}
+
+    if (query) {
+      filter.deposit = { $regex: '.*' + query + '.*' }
+    }
+
+    const qb = this.model.find(filter).lean()
+    const total_count = await this.model.count(filter)
+
+    if (page > 0) {
+      qb.limit(this.pageCount).skip(skip)
+    }
+
+    const entities = await qb.exec()
 
     return {
-      entities: list,
-      total_count: count
+      entities,
+      total_count,
     }
   };
+
+  getAll(query) {
+    const filter = {}
+
+    if (query) {
+      filter.deposit = { $regex: '.*' + query + '.*' }
+    }
+
+    return this.model.find(filter).sort({ createdAt: -1 }).lean().exec()
+  }
 
 }
 

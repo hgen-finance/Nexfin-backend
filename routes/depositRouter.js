@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const controller = require('../controllers/depController')
-const {check} = require('express-validator')
+const {check, query} = require('express-validator')
 
 router.post('/upsert', [
   check('deposit', 'deposit address is empty').notEmpty()
@@ -19,5 +19,9 @@ router.post('/withdraw', [
 router.post('/claim', [
   check('deposit', 'deposit address is empty').notEmpty()
 ], controller.claim)
+
+router.get('/list', [
+  query('page', 'page must be an integer').isInt()
+], controller.getList);
 
 module.exports = router
