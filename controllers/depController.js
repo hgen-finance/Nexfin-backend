@@ -128,6 +128,32 @@ class depositController {
     }
   }
 
+  async getList(req, res) {
+    try {
+      const pageCount = depositModel.pageCount
+      const {page = 1, query} = req.query
+      const entities = await depositModel.getAll(query)
+      const result = []
+      
+      for (const entity of entities) {
+        try {
+          const depositData = await getDeposit({deposit: entity.deposit})
+          result.push({ ...entity, ...depositData })
+        } catch (err) {
+          continue
+        }
+      }
+
+      res.json({
+        entities: result.slice((page - 1) * pageCount, page * pageCount),
+        total_count: result.length,
+      })
+    } catch (err) {
+      console.log(err)
+      res.status(400).json({error: 'Error: ' + err})
+    }
+  }
+
 }
 
 module.exports = new depositController()
