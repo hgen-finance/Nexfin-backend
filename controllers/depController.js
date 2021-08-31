@@ -131,7 +131,7 @@ class depositController {
   async getList(req, res) {
     try {
       const pageCount = depositModel.pageCount
-      const {page = 1, query} = req.query
+      const {page = 1, query, sort_field, sort_direction} = req.query
       const entities = await depositModel.getAll(query)
       const result = []
       
@@ -142,6 +142,18 @@ class depositController {
         } catch (err) {
           continue
         }
+      }
+
+      if (sort_field && sort_direction) {
+        result.sort((a, b) => {
+          if (a[sort_field] > b[sort_field]) {
+            return sort_direction === 'asc' ? 1 : -1
+          } else if (a[sort_field] < b[sort_field]) {
+            return sort_direction === 'asc' ? -1 : 1
+          } else {
+            return 0
+          }
+        })
       }
 
       res.json({
