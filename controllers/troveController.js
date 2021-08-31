@@ -61,7 +61,7 @@ class troveController {
 
       result = result.map(entity => ({
         ...entity,
-        debtRatio: getCollateral(entity.borrowAmount, entity.lamports, '125'),
+        debtRatio: `${getCollateral(entity.borrowAmount, entity.lamports, '125')}%`,
       }))
 
       if (sort_field && sort_direction) {
