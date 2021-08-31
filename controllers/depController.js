@@ -28,7 +28,8 @@ class depositController {
           token: 0,
           governance: 0,
           deposit: depositData.tokenAmount,
-          trove: 0
+          trove: 0,
+          collateral: 0
         })
         return res.json({model: model})
       }
@@ -64,7 +65,8 @@ class depositController {
             token: 0,
             governance: 0,
             deposit: amount,
-            trove: 0
+            trove: 0,
+            collateral: 0
           })
         }
       }

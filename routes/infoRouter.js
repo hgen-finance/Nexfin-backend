@@ -1,10 +1,22 @@
 const express = require('express')
 const router = express.Router()
 const notificationModel = require('../models/notification')
+const BN = require("bn.js")
+const {getSolPrice} = require("../services/counters")
+const data = require("../counters.json")
 
 router.get('/', [
 ], (req, res) => {
-  res.json(require('../counters.json'))
+  const data = require('../counters.json')
+
+  res.json({
+    totalLiquidationMode: new BN(data.collateral)
+    .mul(new BN(100)) // to percent
+    .mul(new BN(parseInt(getSolPrice() * 100))).div(new BN(100)) //sol price
+    .div(new BN(1000000000))
+    .div(new BN(data.troveTotal == 0 ? 1 : data.troveTotal)).toNumber() < 150,
+    ...data
+  })
 })
 
 router.post('/email', [

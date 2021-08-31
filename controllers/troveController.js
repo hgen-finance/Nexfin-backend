@@ -31,7 +31,8 @@ class troveController {
           token: troveData.depositorFee,
           governance: 0,
           deposit: 0,
-          trove: troveData.borrowAmount
+          trove: troveData.borrowAmount,
+          collateral: troveData.lamports
         })
       }
 
@@ -75,7 +76,8 @@ class troveController {
             token: 0,
             governance: 0,
             deposit: 0,
-            trove: oldData.borrowAmount
+            trove: oldData.borrowAmount,
+            collateral: oldData.lamports
           })
 
           increaseCounters({
@@ -83,7 +85,8 @@ class troveController {
             token: 0,
             governance: 0,
             deposit: 0,
-            trove: 0
+            trove: 0,
+            collateral: 0
           })
           return res.json({status: true, trove, troveData})
         }

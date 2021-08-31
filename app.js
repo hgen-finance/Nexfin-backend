@@ -11,7 +11,6 @@ const notificationRouter = require('./routes/notificationRouter')
 const cors = require('cors')
 var app = express()
 app.set('port', process.env.PORT || 3000)
-
 console.log("Express server listening on port " + app.get('port'))
 app.use(cors())
 
@@ -42,12 +41,12 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
+  res.json({err})
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
   res.status(err.status || 500)
-  res.render('error')
 })
 
 module.exports = app
