@@ -51,7 +51,7 @@ class troveController {
         model.teamFee = troveData.teamFee
       }
 
-      await model.model.save()
+      await model.save()
 
       res.json({model})
     } catch (err) {
