@@ -8,13 +8,15 @@ const data = require("../counters.json")
 router.get('/', [
 ], (req, res) => {
   const data = require('../counters.json')
+  const debtRatio = new BN(data.collateral)
+  .mul(new BN(100)) // to percent
+  .mul(new BN(parseInt(getSolPrice() * 100))).div(new BN(100)) //sol price
+  .div(new BN(1000000000))
+  .div(new BN(data.troveTotal == 0 ? 1 : data.troveTotal)).toNumber();
 
   res.json({
-    totalLiquidationMode: new BN(data.collateral)
-    .mul(new BN(100)) // to percent
-    .mul(new BN(parseInt(getSolPrice() * 100))).div(new BN(100)) //sol price
-    .div(new BN(1000000000))
-    .div(new BN(data.troveTotal == 0 ? 1 : data.troveTotal)).toNumber() < 150,
+    totalLiquidationMode: debtRatio < 150,
+    debtRatio,
     ...data
   })
 })
