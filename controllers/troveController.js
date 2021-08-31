@@ -51,7 +51,7 @@ class troveController {
         model.teamFee = troveData.teamFee
       }
 
-      await model.save()
+      await troveModel.model.updateMany({_id: model._id}, { $set: {...model} });
 
       res.json({model})
     } catch (err) {
