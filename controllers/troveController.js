@@ -5,6 +5,7 @@ const {setTroveReceived, liquidateTrove} = require("../services/program")
 const {getTrove} = require("../services/trove")
 const {increaseCounters, decreaseCounters} = require("../services/counters")
 const {BN} = require('bn.js')
+const { getCollateral } = require('../utils/helpers')
 
 class troveController {
   async upsert(req, res) {
@@ -47,7 +48,7 @@ class troveController {
       const pageCount = troveModel.pageCount
       const {page = 1, query, sort_field, sort_direction} = req.query
       const entities = await troveModel.getAll(query)
-      const result = []
+      let result = []
       
       for (const entity of entities) {
         try {
@@ -57,6 +58,11 @@ class troveController {
           continue
         }
       }
+
+      result = result.map(entity => ({
+        ...entity,
+        debtRatio: getCollateral(entity.borrowAmount, entity.lamports, '125'),
+      }))
 
       if (sort_field && sort_direction) {
         result.sort((a, b) => {
