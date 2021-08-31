@@ -16,6 +16,18 @@ class CurrentModel {
         unique: true,
         required: true
       },
+      amountSent: {
+        type: String,
+        unique: false,
+      },
+      teamFee: {
+        type: String,
+        unique: false,
+      },
+      depositorFee: {
+        type: String,
+        unique: false,
+      },
       createdAt: Date,
     }
 

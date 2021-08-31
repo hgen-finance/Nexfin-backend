@@ -22,18 +22,28 @@ class troveController {
       const user = troveData.owner
       trove = troveData.troveAccountPubkey
       let model = await troveModel.findOrCreateByAddress(user, trove)
+      let lamports = 0
+
+      if(!model.amountSent) {
+        model.amountSent = troveData.amountToClose - troveData.depositorFee - troveData.teamFee
+        model.depositorFee = troveData.depositorFee
+        model.teamFee = troveData.teamFee
+        lamports = troveData.lamports
+      }
 
       if (!troveData.isReceived) {
-        await mintToken({address, amount: troveData.amountToClose - troveData.depositorFee - troveData.teamFee})
+        let sentAmount = (troveData.amountToClose - troveData.depositorFee - troveData.teamFee) - model.amountSent
+
+        await mintToken({address, amount:  sentAmount / 100})
         await setTroveReceived({trove})
 
         increaseCounters({
           coin: 0,
-          token: troveData.depositorFee,
+          token: troveData.depositorFee - model.depositorFee,
           governance: 0,
           deposit: 0,
-          trove: troveData.borrowAmount,
-          collateral: troveData.lamports
+          trove: sentAmount,
+          collateral: lamports
         })
       }
 
