@@ -12,7 +12,7 @@ const increaseCounters = ({
 }) => {
   const data = require('../counters.json')
 
-  data.troveTotal = data.troveTotal + trove;
+  data.troveTotal = parseInt(data.troveTotal) + parseInt(trove);
   data.depositTotal = data.depositTotal + deposit;
   data.coin = new BN(data.coin).add(new BN(coin).mul(new BN('1000000000'))).toString()
   data.governance = new BN(data.governance).add(new BN(governance).mul(new BN('1000000000'))).toString()
