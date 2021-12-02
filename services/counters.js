@@ -43,7 +43,7 @@ const decreaseCounters = ({
 }
 
 const getSolPrice = () => {
-  return 88.72;
+  return 215.72;
 }
 
 module.exports = {

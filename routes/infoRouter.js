@@ -21,16 +21,16 @@ router.get('/', [
   })
 })
 
-router.post('/email', [
-], async (req, res) => {
+// router.post('/email', [
+// ], async (req, res) => {
 
-  const user = req.body.user
-  const email = req.body.email
+//   const user = req.body.user
+//   const email = req.body.email
 
-  const model = await notificationModel.create(user,email)
+//   const model = await notificationModel.create(user,email)
 
-  res.json({model})
-})
+//   res.json({model})
+// })
 
 
 module.exports = router

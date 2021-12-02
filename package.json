@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "la-back",
   "main": "app.js",
-  "repository": "https://gitlab.com/amber-software/liquity-app/la-back.git",
-  "author": "HawkPrimo",
+  "author": "pree",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node init.js && node bin/www"
+    "start": "node bin/www"
   },
   "license": "MIT",
   "dependencies": {
@@ -23,7 +22,7 @@
     "express-validator": "^6.12.1",
     "http": "^0.0.1-security",
     "http-errors": "^1.8.0",
-    "mongoose": "^5.13.7",
+    "mongoose": "^6.0.14",
     "node": "^16.6.1",
     "nodemailer": "^6.6.3"
   }

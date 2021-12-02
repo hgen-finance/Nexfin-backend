@@ -10,7 +10,7 @@ router.post('/upsert', [
 
 
 router.get('/', [
-  check('user', 'user address is empty').notEmpty(),
+  check('user', 'user address is very empty').notEmpty(),
 ], controller.getByUserAndTrove);
 
 

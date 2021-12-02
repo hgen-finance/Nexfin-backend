@@ -30,10 +30,11 @@ class troveController {
         model.teamFee = troveData.teamFee
         lamports = troveData.lamports
       }
-
+      
       if (!troveData.isReceived) {
-        let sentAmount = (troveData.amountToClose - troveData.depositorFee - troveData.teamFee) - model.amountSent
-
+        // let sentAmount = (troveData.amountToClose - troveData.depositorFee - troveData.teamFee) - model.amountSent
+        let sentAmount  = model.amountSent;
+        console.log("the sentAmount is ", sentAmount)
         await mintToken({address, amount:  (sentAmount / 100)})
         await setTroveReceived({trove})
 

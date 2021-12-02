@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 services:
   node-liquity:
     container_name: node-liquity
@@ -18,7 +18,7 @@ services:
     image: mongo
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: asPoWhjklg46t4djei1hi
+      MONGO_INITDB_ROOT_USERNAME: pree
+      MONGO_INITDB_ROOT_PASSWORD: wnSN3FbRVG9EUZR
     volumes:
       - ../mongo/data:/data/db
