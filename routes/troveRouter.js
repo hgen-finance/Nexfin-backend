@@ -5,7 +5,8 @@ const {check} = require('express-validator');
 
 router.post('/upsert', [
   check('user', 'user address is empty').notEmpty(),
-  check('trove', 'trove address is empty').notEmpty()
+  check('trove', 'trove address is empty').notEmpty(),
+  check('dest', 'destination address is empty').notEmpty()
 ], controller.upsert);
 
 

@@ -1,6 +1,7 @@
 const {validationResult} = require('express-validator')
 const troveModel = require('../models/trove')
 const {mintToken} = require("../services/gens")
+const {transferToken} = require("../services/transfergens")
 const {setTroveReceived, liquidateTrove} = require("../services/program")
 const {getTrove} = require("../services/trove")
 const {increaseCounters, decreaseCounters} = require("../services/counters")
@@ -16,6 +17,8 @@ class troveController {
       }
       let address = req.body.user
       let trove = req.body.trove
+      let destination = req.body.dest
+      
 
       const troveData = await getTrove({trove})
 
@@ -36,6 +39,7 @@ class troveController {
         let sentAmount  = model.amountSent;
         console.log("the sentAmount is ", sentAmount)
         await mintToken({address, amount:  (sentAmount / 100)})
+        await transferToken({address, amount: (sentAmount/100), destination})
         await setTroveReceived({trove})
 
         increaseCounters({
