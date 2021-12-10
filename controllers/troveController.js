@@ -8,6 +8,7 @@ const {increaseCounters, decreaseCounters} = require("../services/counters")
 const {BN} = require('bn.js')
 const { getCollateral } = require('../utils/helpers')
 
+//TODO fix the partial payment for borrow
 class troveController {
   async upsert(req, res) {
     try {
