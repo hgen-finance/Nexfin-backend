@@ -110,6 +110,7 @@ class troveController {
     }
   }
 
+// liquidating trove call
   async liquidateTrove(req, res) {
     try {
       let trove = req.body.trove.trim()
