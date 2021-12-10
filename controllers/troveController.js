@@ -66,6 +66,7 @@ class troveController {
     }
   }
 
+  // list of borrowers for the liquidation page
   async getList(req, res) {
     try {
       const pageCount = troveModel.pageCount
