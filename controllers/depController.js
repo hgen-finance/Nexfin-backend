@@ -15,6 +15,7 @@ class depositController {
         return res.status(400).json({error: "Error:", errors})
       }
       let deposit = req.body.deposit
+      let deposit_amount = req.body.amount
 
       const depositData = await getDeposit({deposit})
 
@@ -22,12 +23,12 @@ class depositController {
         const user = depositData.owner
 
         let model = await depositModel.findOrCreateByAddress(user, deposit)
-
+        console.log("the deposit data is ", depositData.tokenAmount)
         increaseCounters({
           coin: 0,
           token: 0,
           governance: 0,
-          deposit: depositData.tokenAmount,
+          deposit: deposit_amount,
           trove: 0,
           collateral: 0
         })
@@ -62,14 +63,17 @@ class depositController {
           //TODO change the value of withdraw_amount to (oldAmount - withdrawRes.tokenAmount)
           const withdraw_amount = (amount)
           const remaining_amount = (oldAmount - withdraw_amount)
-          if (remaining_amount > 0){
+          console.log(remaining_amount)
+          console.log("the withdraw_amount is ", withdraw_amount)
+          console.log("the token amount is ", withdrawRes.tokenAmount)
+          if (remaining_amount >= 0){
             await mintToken({address: withdrawRes.bank, amount: (withdraw_amount)});
 
             decreaseCounters({
               coin: 0,
               token: 0,
               governance: 0,
-              deposit: remaining_amount,
+              deposit: withdraw_amount,
               trove: 0,
               collateral: 0
             });
