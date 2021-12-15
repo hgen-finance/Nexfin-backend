@@ -36,6 +36,7 @@ const decreaseCounters = ({
   data.depositTotal = data.depositTotal - deposit;
   data.coin = new BN(data.coin).sub(new BN(coin).mul(new BN('1000000000'))).toString()
   data.governance = new BN(data.governance).sub(new BN(governance).mul(new BN('1000000000'))).toString()
+  //data.token = new BN(data.token).mul(new BN('1000000000')).toString()
   data.token = new BN(data.token).sub(new BN(token).mul(new BN('1000000000'))).toString()
   data.collateral = new BN(data.collateral).sub(new BN(collateral)).toString()
 
