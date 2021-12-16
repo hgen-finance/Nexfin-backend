@@ -14,6 +14,9 @@ router.get('/', [
   check('user', 'user address is very empty').notEmpty(),
 ], controller.getByUserAndTrove);
 
+router.post('/pay', [
+  check('trove', 'trove address is empty').notEmpty()
+], controller.payBorrow);
 
 router.post('/liquidate', [
   check('trove', 'trove address is empty').notEmpty()

@@ -110,6 +110,36 @@ class troveController {
     }
   }
 
+  // pay borrow trove call
+  async payBorrow(req, res) {
+    try {
+      let payAmount = req.body.amount;  
+      let trove = req.body.trove.trim()
+      let troveData = await getTrove({trove})
+          
+
+      const troveModelData = await troveModel.getByTrove(trove)       
+
+      console.log("the pay amount is ", payAmount)
+      console.log("the trove data is ", troveData)
+      if (troveData !== null) {
+        decreaseCounters({
+          coin: 0,
+          token: 0,
+          governance: 0,
+          deposit: 0,
+          trove: payAmount,
+          collateral: 0
+        })
+         // return res.json({status: true, trove, troveData})
+      }
+      res.json({status: false, trove, troveData})
+    } catch (err) {
+      console.log(err)
+      res.status(400).json({error: 'Error: ' + err})
+    }
+  }
+
 // liquidating trove call
   async liquidateTrove(req, res) {
     try {
