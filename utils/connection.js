@@ -37,7 +37,7 @@ const TROVE_ACCOUNT_DATA_LAYOUT = BufferLayout.struct([
   uint64("amountToClose"),
   publicKey("owner"),
 ]);
-let connection = new Connection("https://api.devnet.solana.com");
+let connection = new Connection("https://api.testnet.solana.com");
 
 module.exports = {
   TROVE_ACCOUNT_DATA_LAYOUT,

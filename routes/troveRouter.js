@@ -9,6 +9,12 @@ router.post('/upsert', [
   check('dest', 'destination address is empty').notEmpty()
 ], controller.upsert);
 
+router.post('/addBorrow', [
+  check('user', 'user address is empty').notEmpty(),
+  check('trove', 'trove address is empty').notEmpty(),
+  check('dest', 'destination address is empty').notEmpty()
+], controller.addBorrow);
+
 
 router.get('/', [
   check('user', 'user address is very empty').notEmpty(),

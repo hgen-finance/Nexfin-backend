@@ -20,7 +20,6 @@ class troveController {
       let trove = req.body.trove
       let destination = req.body.dest
       
-
       const troveData = await getTrove({trove})
 
       const user = troveData.owner
@@ -61,6 +60,53 @@ class troveController {
 
       res.json({model})
     } catch (err) {
+      console.log(err)
+      res.status(400).json({error: 'Error: ' + err})
+    }
+  }
+
+  //add borrow collateral
+  async addBorrow(req, res) {
+    try {
+      let address = req.body.user
+      let trove = req.body.trove
+      let destination = req.body.dest
+      
+
+      console.log("add borrow is activated")
+      const troveData = await getTrove({trove})
+      const user = troveData.owner
+      trove = troveData.troveAccountPubkey
+      let model = await troveModel.findOrCreateByAddress(user, trove)
+      let lamports = troveData.lamports
+      
+      console.log("the borrowed amount is ",)
+      if (troveData.isReceived) {
+        let sentAmount  = model.amountSent;
+        console.log("the sentAmount is ", sentAmount)
+        await mintToken({address, amount:  (sentAmount)})
+        await transferToken({address, amount: (sentAmount), destination})
+        await setTroveReceived({trove})
+
+        increaseCounters({
+          coin: 0,
+          token: troveData.depositorFee - model.depositorFee,
+          governance: 0,
+          deposit: 0,
+          trove: sentAmount,
+          collateral: lamports
+        })
+
+        model.amountSent = model.amountSent + troveData.amountToClose - troveData.depositorFee - troveData.teamFee
+        model.depositorFee = model.depositorFee + troveData.depositorFee
+        model.teamFee = model.teamFee + troveData.teamFee
+      }
+
+      await troveModel.model.updateMany({_id: model._id}, { $set: {...model} });
+
+      res.json({model})
+
+    }catch (err) {
       console.log(err)
       res.status(400).json({error: 'Error: ' + err})
     }
