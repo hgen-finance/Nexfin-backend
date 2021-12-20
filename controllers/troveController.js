@@ -71,6 +71,9 @@ class troveController {
       let address = req.body.user
       let trove = req.body.trove
       let destination = req.body.dest
+      let depositorFee = req.body.amount * 0.4
+      let teamFee = req.body.amount * 0.1
+      let amount = req.body.amount - depositorFee - teamFee
       
 
       console.log("add borrow is activated")
@@ -80,10 +83,9 @@ class troveController {
       let model = await troveModel.findOrCreateByAddress(user, trove)
       let lamports = troveData.lamports
       
-      console.log("the borrowed amount is ",)
-      if (troveData.isReceived) {
-        let sentAmount  = model.amountSent;
-        console.log("the sentAmount is ", sentAmount)
+      console.log("the trove model ", troveData)
+      
+        let sentAmount  = amount;
         await mintToken({address, amount:  (sentAmount)})
         await transferToken({address, amount: (sentAmount), destination})
         await setTroveReceived({trove})
@@ -100,7 +102,7 @@ class troveController {
         model.amountSent = model.amountSent + troveData.amountToClose - troveData.depositorFee - troveData.teamFee
         model.depositorFee = model.depositorFee + troveData.depositorFee
         model.teamFee = model.teamFee + troveData.teamFee
-      }
+      
 
       await troveModel.model.updateMany({_id: model._id}, { $set: {...model} });
 
