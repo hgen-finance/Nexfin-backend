@@ -1,4 +1,4 @@
-const { Connection, Account } = require("@solana/web3.js");
+const { Connection, Account, PublicKey } = require("@solana/web3.js");
 const BufferLayout = require("buffer-layout");
 
 /**

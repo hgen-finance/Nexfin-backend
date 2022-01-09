@@ -59,6 +59,7 @@ class depositController {
       if (depositData !== null) {
         const oldAmount = (await depositData).tokenAmount
         const withdrawRes = await withdrawDeposit({deposit, amount})
+        console.log("getthing the withdrawRes", withdrawRes)
         if (withdrawRes !== null) {
           //TODO change the value of withdraw_amount to (oldAmount - withdrawRes.tokenAmount)
           const withdraw_amount = (amount)

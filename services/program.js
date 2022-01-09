@@ -69,6 +69,7 @@ const liquidateTrove = async ({trove}) => {
 const withdrawDeposit = async ({deposit, amount}) => {
   const initializerAccount = sysAccount
 
+  console.log("the initializerAccount is ", initializerAccount)
   const depositAccount = new PublicKey(deposit)
   const escrowProgramId = new PublicKey(programId)
 
