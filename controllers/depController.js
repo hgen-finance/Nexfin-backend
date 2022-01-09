@@ -23,7 +23,6 @@ class depositController {
         const user = depositData.owner
 
         let model = await depositModel.findOrCreateByAddress(user, deposit)
-        console.log("the deposit data is ", depositData.tokenAmount)
         increaseCounters({
           coin: 0,
           token: 0,
@@ -34,8 +33,8 @@ class depositController {
         })
         return res.json({model: model})
       }
+      res.json({model})
 
-      res.json({model: null})
     } catch (err) {
       console.log(err)
       res.status(400).json({error: 'Error: ' + err})

@@ -11,9 +11,10 @@ const increaseCounters = ({
   collateral
 }) => {
   const data = require('../counters.json')
-
-  data.troveTotal = parseInt(data.troveTotal) + parseInt(trove);
+  console.log("the deposit is ", deposit)
+  data.troveTotal = parseInt(data.troveTotal) + trove;
   data.depositTotal = data.depositTotal + deposit;
+  console.log("the trove total is ", data.depositTotal)
   data.coin = new BN(data.coin).add(new BN(coin).mul(new BN('1000000000'))).toString()
   data.governance = new BN(data.governance).add(new BN(governance).mul(new BN('1000000000'))).toString()
   data.token = new BN(data.token).add(new BN(token).mul(new BN('1000000000'))).toString()
