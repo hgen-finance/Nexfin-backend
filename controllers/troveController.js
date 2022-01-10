@@ -44,7 +44,7 @@ class troveController {
 
         increaseCounters({
           coin: 0,
-          token: troveData.depositorFee - model.depositorFee,
+          token: troveData.depositorFee,
           governance: 0,
           deposit: 0,
           trove: sentAmount,
@@ -92,11 +92,11 @@ class troveController {
 
         increaseCounters({
           coin: 0,
-          token: troveData.depositorFee - model.depositorFee,
+          token: troveData.depositorFee,
           governance: 0,
           deposit: 0,
           trove: sentAmount,
-          collateral: lamports
+          collateral: lamports,
         })
 
         model.amountSent = model.amountSent + troveData.amountToClose - troveData.depositorFee - troveData.teamFee
