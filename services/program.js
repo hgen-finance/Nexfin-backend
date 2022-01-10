@@ -93,7 +93,7 @@ const withdrawDeposit = async ({deposit, amount}) => {
     preflightCommitment: 'singleGossip'
   })
 
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+  await new Promise((resolve) => setTimeout(resolve, 5000))
 
   return getDeposit({deposit})
 }
