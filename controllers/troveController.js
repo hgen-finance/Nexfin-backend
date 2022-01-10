@@ -28,7 +28,7 @@ class troveController {
       let lamports = 0
 
       if(!model.amountSent) {
-        model.amountSent = troveData.amountToClose - troveData.depositorFee - troveData.teamFee
+        model.amountSent = troveData.amountToClose * 1000 - troveData.depositorFee - troveData.teamFee
         model.depositorFee = troveData.depositorFee
         model.teamFee = troveData.teamFee
         lamports = troveData.lamports
@@ -36,7 +36,7 @@ class troveController {
       
       if (!troveData.isReceived) {
         // let sentAmount = (troveData.amountToClose - troveData.depositorFee - troveData.teamFee) - model.amountSent
-        let sentAmount  = model.amountSent;
+        let sentAmount  = model.amountSent / 1000;
         console.log("the sentAmount is ", sentAmount)
         await mintToken({address, amount:  (sentAmount)})
         await transferToken({address, amount: (sentAmount), destination})
