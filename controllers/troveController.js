@@ -57,12 +57,13 @@ class troveController {
           collateral: lamports
         })
 
-        model.amountSent = troveData.amountToClose - troveData.depositorFee - troveData.teamFee
-        model.depositorFee = troveData.depositorFee
-        model.teamFee = troveData.teamFee
+        model.amountSent = (troveData.amountToClose * 1000 - troveData.depositorFee - troveData.teamFee)/1000
+        model.depositorFee = troveData.depositorFee / 1000
+        model.teamFee = troveData.teamFee / 1000
       }
 
       await troveModel.model.updateMany({_id: model._id}, { $set: {...model} });
+      console.log("the trove model set is ", {_id: model._id}, {...model})
 
       res.json({model})
     } catch (err) {
@@ -79,6 +80,7 @@ class troveController {
       let destination = req.body.dest
       let depositorFee = req.body.amount * (DEPOSIT_FEE_PERCENT/100)
       depositorFee = depositorFee < MIN_DEPOSIT_FEES ? MIN_DEPOSIT_FEES : depositorFee
+      
       let teamFee = req.body.amount * (TEAM_FEE_PERCENT/100)
       teamFee = teamFee < MIN_TEAM_FEES ? MIN_TEAM_FEES : teamFee
       let amount = req.body.amount - depositorFee - teamFee
@@ -91,7 +93,7 @@ class troveController {
       let model = await troveModel.findOrCreateByAddress(user, trove)
       let lamports = troveData.lamports
       
-      console.log("the trove model ", troveData)
+      console.log("the trove model after log out ", troveData)
       
         let sentAmount  = amount;
         await mintToken({address, amount:  (sentAmount)})
