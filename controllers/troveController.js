@@ -8,6 +8,12 @@ const {increaseCounters, decreaseCounters} = require("../services/counters")
 const {BN} = require('bn.js')
 const { getCollateral } = require('../utils/helpers')
 
+
+const MIN_DEPOSIT_FEE= 4;
+const MIN_TEAM_FEE = 1;
+const DEPOSIT_FEE_PERCENT = 0.4;
+const TEAM_FEE_PERCENT = 0.1;
+
 //TODO fix the partial payment for borrow
 class troveController {
   async upsert(req, res) {
@@ -71,8 +77,8 @@ class troveController {
       let address = req.body.user
       let trove = req.body.trove
       let destination = req.body.dest
-      let depositorFee = req.body.amount * 0.4
-      let teamFee = req.body.amount * 0.1
+      let depositorFee = req.body.amount * (DEPOSIT_FEE_PERCENT/100) < MIN_DEPOSIT_FEE ? MIN_DEPOSIT_FEE
+      let teamFee = req.body.amount * (TEAM_FEE_PERCENT/100) < MIN_TEAM_FEE ? MIN_TEAM_FEE
       let amount = req.body.amount - depositorFee - teamFee
       
 
