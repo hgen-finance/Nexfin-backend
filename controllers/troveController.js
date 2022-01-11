@@ -9,8 +9,8 @@ const {BN} = require('bn.js')
 const { getCollateral } = require('../utils/helpers')
 
 
-const MIN_DEPOSIT_FEE= 4;
-const MIN_TEAM_FEE = 1;
+const MIN_DEPOSIT_FEES= 4;
+const MIN_TEAM_FEES = 1;
 const DEPOSIT_FEE_PERCENT = 0.4;
 const TEAM_FEE_PERCENT = 0.1;
 
@@ -77,8 +77,10 @@ class troveController {
       let address = req.body.user
       let trove = req.body.trove
       let destination = req.body.dest
-      let depositorFee = req.body.amount * (DEPOSIT_FEE_PERCENT/100) < MIN_DEPOSIT_FEE ? MIN_DEPOSIT_FEE
-      let teamFee = req.body.amount * (TEAM_FEE_PERCENT/100) < MIN_TEAM_FEE ? MIN_TEAM_FEE
+      let depositorFee = req.body.amount * (DEPOSIT_FEE_PERCENT/100)
+      depositorFee = depositorFee < MIN_DEPOSIT_FEES ? MIN_DEPOSIT_FEES : depositorFee
+      let teamFee = req.body.amount * (TEAM_FEE_PERCENT/100)
+      teamFee = teamFee < MIN_TEAM_FEES ? MIN_TEAM_FEES : teamFee
       let amount = req.body.amount - depositorFee - teamFee
       
 
