@@ -48,27 +48,19 @@ class depositController {
         return res.status(400).json({error: "Error:", errors})
       }
       let amount = req.body.amount
-      console.log("the amount received is ", amount)
       let deposit = req.body.deposit
       deposit = deposit.trim()
       let model = await depositModel.getByDeposit(deposit)
-      console.log("the model is ", model)
       const depositData = await getDeposit({deposit})
 
       if (depositData !== null) {
         const oldAmount = (await depositData).tokenAmount
-        const withdrawRes = await withdrawDeposit({deposit, amount})
-        console.log("getthing the withdrawRes", withdrawRes)
+        const withdrawRes = depositData
         if (withdrawRes !== null) {
           //TODO change the value of withdraw_amount to (oldAmount - withdrawRes.tokenAmount)
           const withdraw_amount = (amount)
           const remaining_amount = (oldAmount - withdraw_amount)
-          console.log(remaining_amount)
-          console.log("the withdraw_amount is ", withdraw_amount)
-          console.log("the token amount is ", withdrawRes.tokenAmount)
           if (remaining_amount >= 0){
-            await mintToken({address: withdrawRes.bank, amount: (withdraw_amount)});
-
             decreaseCounters({
               coin: 0,
               token: 0,
