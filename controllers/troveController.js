@@ -44,8 +44,8 @@ class troveController {
         // let sentAmount = (troveData.amountToClose - troveData.depositorFee - troveData.teamFee) - model.amountSent
         let sentAmount  = model.amountSent / 1000;
         console.log("the sentAmount is ", sentAmount)
-        await mintToken({address, amount:  (sentAmount)})
-        await transferToken({address, amount: (sentAmount), destination})
+        // await mintToken({address, amount:  (sentAmount)})
+        // await transferToken({address, amount: (sentAmount), destination})
         await setTroveReceived({trove})
 
         increaseCounters({
@@ -96,8 +96,8 @@ class troveController {
       console.log("the trove model after log out ", troveData)
       
         let sentAmount  = amount;
-        await mintToken({address, amount:  (sentAmount)})
-        await transferToken({address, amount: (sentAmount), destination})
+        // await mintToken({address, amount:  (sentAmount)})
+        // await transferToken({address, amount: (sentAmount), destination})
         await setTroveReceived({trove})
 
         increaseCounters({
