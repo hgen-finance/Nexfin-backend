@@ -24,6 +24,7 @@ class troveController {
       }
       let address = req.body.user
       let trove = req.body.trove
+      let amount = req.body.amount
       let destination = req.body.dest
       
       const troveData = await getTrove({trove})
@@ -33,19 +34,16 @@ class troveController {
       let model = await troveModel.findOrCreateByAddress(user, trove)
       let lamports = 0
 
+      let sentAmount  = Number(amount) - Number(troveData.depositorFee)/1000 - Number(troveData.teamFee)/1000;
+
       if(!model.amountSent) {
-        model.amountSent = troveData.amountToClose * 1000 - troveData.depositorFee - troveData.teamFee
-        model.depositorFee = troveData.depositorFee
-        model.teamFee = troveData.teamFee
+        model.amountSent = sentAmount
+        model.depositorFee = troveData.depositorFee / 1000
+        model.teamFee = troveData.teamFee / 1000
         lamports = troveData.lamports
       }
       
       if (!troveData.isReceived) {
-        // let sentAmount = (troveData.amountToClose - troveData.depositorFee - troveData.teamFee) - model.amountSent
-        let sentAmount  = model.amountSent / 1000;
-        console.log("the sentAmount is ", sentAmount)
-        // await mintToken({address, amount:  (sentAmount)})
-        // await transferToken({address, amount: (sentAmount), destination})
         await setTroveReceived({trove})
 
         increaseCounters({
@@ -56,10 +54,6 @@ class troveController {
           trove: sentAmount,
           collateral: lamports
         })
-
-        model.amountSent = (troveData.amountToClose * 1000 - troveData.depositorFee - troveData.teamFee)/1000
-        model.depositorFee = troveData.depositorFee / 1000
-        model.teamFee = troveData.teamFee / 1000
       }
 
       await troveModel.model.updateMany({_id: model._id}, { $set: {...model} });
@@ -83,8 +77,7 @@ class troveController {
       
       let teamFee = req.body.amount * (TEAM_FEE_PERCENT/100)
       teamFee = teamFee < MIN_TEAM_FEES ? MIN_TEAM_FEES : teamFee
-      let amount = req.body.amount - depositorFee - teamFee
-      
+      let amount = req.body.amount
 
       console.log("add borrow is activated")
       const troveData = await getTrove({trove})
@@ -95,9 +88,7 @@ class troveController {
       
       console.log("the trove model after log out ", troveData)
       
-        let sentAmount  = amount;
-        // await mintToken({address, amount:  (sentAmount)})
-        // await transferToken({address, amount: (sentAmount), destination})
+        let sentAmount  = Number(amount) - Number(troveData.depositorFee)/1000 - Number(troveData.teamFee)/1000;
         await setTroveReceived({trove})
 
         increaseCounters({
@@ -109,10 +100,10 @@ class troveController {
           collateral: lamports,
         })
 
-        model.amountSent = model.amountSent + troveData.amountToClose - troveData.depositorFee - troveData.teamFee
-        model.depositorFee = model.depositorFee + troveData.depositorFee
-        model.teamFee = model.teamFee + troveData.teamFee
-      
+
+        model.amountSent = Number(model.amountSent) + sentAmount
+        model.depositorFee = Number(model.depositorFee) + Number(troveData.depositorFee) / 1000
+        model.teamFee = Number(model.teamFee) + Number(troveData.teamFee)/ 1000
 
       await troveModel.model.updateMany({_id: model._id}, { $set: {...model} });
 
@@ -137,14 +128,16 @@ class troveController {
           const troveData = await getTrove({trove: entity.trove})
           result.push({ ...entity, ...troveData })
         } catch (err) {
+          console.log("This is showing error here", err)
           continue
         }
       }
 
-      result = result.map(entity => ({
+      result = result.map(entity => {
+        return ({
         ...entity,
-        debtRatio: `${getCollateral(entity.borrowAmount, entity.lamports, '125')}%`,
-      }))
+        debtRatio: `${getCollateral(entity.borrowAmount, entity.lamports, '125')}%`, // TODO fix it here for the USD PRICE is set to 125
+      })})
 
       if (sort_field && sort_direction) {
         result.sort((a, b) => {
@@ -211,7 +204,10 @@ class troveController {
         await troveModel.model.deleteOne({ trove })
       }
 
-      if (troveData !== null && troveData.isReceived && !troveData.isLiquidated) {
+      console.log("before liquidating......")
+      // TODO check this later
+      // && troveData.isReceived 
+      if (troveData !== null && !troveData.isLiquidated) {
         let oldData = troveData
         troveData = await liquidateTrove({trove})
 

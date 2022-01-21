@@ -12,6 +12,7 @@
   "dependencies": {
     "@solana/web3.js": "^1.24.1",
     "bn.js": "^5.2.0",
+    "bs58": "^4.0.1",
     "buffer-layout": "^1.2.2",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
