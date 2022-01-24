@@ -7,6 +7,7 @@ const troveRouter = require("./routes/troveRouter");
 const depositRouter = require("./routes/depositRouter");
 const infoRouter = require("./routes/infoRouter");
 const notificationRouter = require("./routes/notificationRouter");
+const rewardRouter = require("./routes/rewardRouter");
 
 const cors = require("cors");
 var app = express();
@@ -27,6 +28,7 @@ app.use(cookieParser());
 
 app.use("/trove", troveRouter);
 app.use("/deposit", depositRouter);
+app.use("/reward", rewardRouter);
 app.use("/info", infoRouter);
 //app.use("/notification", notificationRouter);
 app.get("/", (req, res) => {

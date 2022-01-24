@@ -7,6 +7,7 @@ const {getTrove} = require("../services/trove")
 const {increaseCounters, decreaseCounters} = require("../services/counters")
 const {BN} = require('bn.js')
 const { getCollateral } = require('../utils/helpers')
+const {claimReward} = require('../commands/claimReward')
 
 
 const MIN_DEPOSIT_FEES= 4;
@@ -26,6 +27,12 @@ class troveController {
       let trove = req.body.trove
       let amount = req.body.amount
       let destination = req.body.dest
+       // TODO refractor this code. Make a separate function to get the dep fee
+      let depositorFee = amount * (DEPOSIT_FEE_PERCENT/100)
+      depositorFee = depositorFee < MIN_DEPOSIT_FEES ? MIN_DEPOSIT_FEES : depositorFee
+
+      let teamFee = req.body.amount * (TEAM_FEE_PERCENT/100)
+      teamFee = teamFee < MIN_TEAM_FEES ? MIN_TEAM_FEES : teamFee
       
       const troveData = await getTrove({trove})
 
@@ -34,7 +41,7 @@ class troveController {
       let model = await troveModel.findOrCreateByAddress(user, trove)
       let lamports = 0
 
-      let sentAmount  = Number(amount) - Number(troveData.depositorFee)/1000 - Number(troveData.teamFee)/1000;
+      let sentAmount  = Number(amount) - depositorFee - teamFee;
 
       if(!model.amountSent) {
         model.amountSent = sentAmount
@@ -55,7 +62,7 @@ class troveController {
           collateral: lamports
         })
       }
-
+      
       await troveModel.model.updateMany({_id: model._id}, { $set: {...model} });
       console.log("the trove model set is ", {_id: model._id}, {...model})
 
@@ -72,6 +79,8 @@ class troveController {
       let address = req.body.user
       let trove = req.body.trove
       let destination = req.body.dest
+
+      // TODO refractor this code. Make a separate function to get the dep fee
       let depositorFee = req.body.amount * (DEPOSIT_FEE_PERCENT/100)
       depositorFee = depositorFee < MIN_DEPOSIT_FEES ? MIN_DEPOSIT_FEES : depositorFee
       
@@ -88,7 +97,7 @@ class troveController {
       
       console.log("the trove model after log out ", troveData)
       
-        let sentAmount  = Number(amount) - Number(troveData.depositorFee)/1000 - Number(troveData.teamFee)/1000;
+        let sentAmount  = Number(amount) - depositorFee - teamFee;
         await setTroveReceived({trove})
 
         increaseCounters({
@@ -102,8 +111,8 @@ class troveController {
 
 
         model.amountSent = Number(model.amountSent) + sentAmount
-        model.depositorFee = Number(model.depositorFee) + Number(troveData.depositorFee) / 1000
-        model.teamFee = Number(model.teamFee) + Number(troveData.teamFee)/ 1000
+        model.depositorFee = Number(troveData.depositorFee) / 1000
+        model.teamFee = Number(troveData.teamFee)/ 1000
 
       await troveModel.model.updateMany({_id: model._id}, { $set: {...model} });
 
@@ -167,12 +176,13 @@ class troveController {
       let payAmount = req.body.amount;  
       let trove = req.body.trove.trim()
       let troveData = await getTrove({trove})
-          
+      const troveModelData = await troveModel.getByTrove(trove)    
 
-      const troveModelData = await troveModel.getByTrove(trove)       
+      // TODO refractor this code. Make a separate function to get the dep fee
+      let depositorFee = payAmount * (DEPOSIT_FEE_PERCENT/100)
+      depositorFee = depositorFee < MIN_DEPOSIT_FEES ? MIN_DEPOSIT_FEES : depositorFee   
 
-      console.log("the pay amount is ", payAmount)
-      console.log("the trove data is ", troveData)
+
       if (troveData !== null) {
         decreaseCounters({
           coin: 0,
@@ -184,6 +194,10 @@ class troveController {
         })
          // return res.json({status: true, trove, troveData})
       }
+
+      troveModelData.depositorFee = Number(troveData.depositorFee)/1000
+      troveModelData.teamFee = Number(troveData.teamFee)/1000
+
       res.json({status: false, trove, troveData})
     } catch (err) {
       console.log(err)

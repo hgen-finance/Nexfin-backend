@@ -16,6 +16,7 @@ const decodeDeposit = ({encodedDepositState, deposit}) => {
 
   const decodedDepositState = DEPOSIT_ACCOUNT_DATA_LAYOUT.decode(encodedDepositState)
 
+  console.log("the amount is ", new BN(decodedDepositState.tokenAmount, 10, 'le').toNumber() )
   return {
     depositAccountPubkey: deposit,
     isInitialized: !!decodedDepositState.isInitialized,
@@ -42,6 +43,7 @@ const getDepositCounters = async () => {
       if(depositData === null) {
         await DepositModel.model.deleteOne({deposit})
       } else {
+        console.log("the deposit amount is ", depositData.tokenAmount);
         depositAmount += depositData.tokenAmount
       }
     } catch (e) {
