@@ -31,7 +31,7 @@ const claimReward = async ({governance, coin, token}) => {
           continue
         }
         const depositorCoin = coin.mul(depositSize).div(depositAmount).toString()
-        const depositorToken = token.mul(depositSize).mul(new BN(100)).div(depositAmount).toString()
+        const depositorToken = token.mul(depositSize).div(depositAmount).toString()
         const depositorGovernance = governance.mul(depositSize).div(depositAmount).toString()
         console.log(depositorCoin, depositorToken, depositorGovernance)
 

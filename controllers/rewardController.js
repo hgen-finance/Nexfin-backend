@@ -21,7 +21,7 @@ class rewardController {
       let amount = req.body.amount
 
        // TODO refractor this code. Make a separate function to get the dep fee
-      let depositorFee = amount * (DEPOSIT_FEE_PERCENT/100)
+      let depositorFee = amount * (DEPOSIT_FEE_PERCENT)
       depositorFee = depositorFee < MIN_DEPOSIT_FEES ? MIN_DEPOSIT_FEES : depositorFee
 
       let teamFee = req.body.amount * (TEAM_FEE_PERCENT/100)
