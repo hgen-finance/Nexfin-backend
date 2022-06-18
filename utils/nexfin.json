@@ -1,0 +1,1177 @@
+{
+    "version": "0.0.0",
+    "name": "nexfin",
+    "instructions": [
+      {
+        "name": "borrow",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "troveAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "solTrove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "feeAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "teamFeeAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenAuthority",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "stableCoin",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "userToken",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "pythSolAccount",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "tokenProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "rent",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "borrowAmount",
+            "type": "u64"
+          },
+          {
+            "name": "lamports",
+            "type": "u64"
+          },
+          {
+            "name": "troveAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "solAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "mintAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "feeAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "teamFeeAccountBump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "addBorrow",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "trove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "solTrove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "feeAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "teamFeeAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenAuthority",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "stableCoin",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "userToken",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "pythSolAccount",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "tokenProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "rent",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "borrowAmount",
+            "type": "u64"
+          },
+          {
+            "name": "lamports",
+            "type": "u64"
+          },
+          {
+            "name": "mintAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "feeAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "teamFeeAccountBump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "closeTrove",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "trove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "solTrove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "userToken",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenMint",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "solAccountBump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "liquidateTrove",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "adminAccountAuthority",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "config",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "trove",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "troveBump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "withdrawCoin",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "trove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "solTrove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "troveBump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "redeemCoin",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "trove",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "addCoin",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "trove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tempLamportAccount",
+            "isMut": true,
+            "isSigner": true
+          }
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "addDeposit",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "depositAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "rent",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "tokenProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "userToken",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "userGovToken",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenMint",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "depositAccountBump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "withdrawDeposit",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "deposit",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenAuthority",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "stableCoin",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "userToken",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "mintAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "depositAccountBump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "claimDepositReward",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "deposit",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenAuthority",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "stableCoin",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "userTokenAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "rewardCoinVault",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "mintAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "depositAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "rewardVaultBump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "receiveTrove",
+        "accounts": [
+          {
+            "name": "trove",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "troveAccount",
+            "type": "publicKey"
+          }
+        ]
+      },
+      {
+        "name": "addDepositReward",
+        "accounts": [
+          {
+            "name": "deposit",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "coin",
+            "type": "u64"
+          },
+          {
+            "name": "governance",
+            "type": "u64"
+          },
+          {
+            "name": "token",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "updateTrove",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "trove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "solTrove",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "userToken",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenMint",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "loadPrice",
+        "accounts": [
+          {
+            "name": "price",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "setPrice",
+        "accounts": [
+          {
+            "name": "price",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "price",
+            "type": "i64"
+          }
+        ]
+      },
+      {
+        "name": "initializeConfig",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "configAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "configAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "isInitialized",
+            "type": "bool"
+          },
+          {
+            "name": "mintAccountAuthority",
+            "type": "publicKey"
+          },
+          {
+            "name": "adminAccountAuthority",
+            "type": "publicKey"
+          }
+        ]
+      },
+      {
+        "name": "changeConfig",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "adminAccountAuthority",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "configAccount",
+            "isMut": true,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "isInitialized",
+            "type": "bool"
+          },
+          {
+            "name": "mintAccountAuthority",
+            "type": "publicKey"
+          },
+          {
+            "name": "adminAccountAuthority",
+            "type": "publicKey"
+          }
+        ]
+      },
+      {
+        "name": "initializeAdmin",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "adminAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "adminAccountBump",
+            "type": "u8"
+          },
+          {
+            "name": "adminAccountAuthority",
+            "type": "publicKey"
+          }
+        ]
+      },
+      {
+        "name": "initializeTokenAcc",
+        "accounts": [
+          {
+            "name": "authority",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "tokenAuthority",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "mintAccountBump",
+            "type": "u8"
+          }
+        ]
+      }
+    ],
+    "accounts": [
+      {
+        "name": "Config",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "bump",
+              "type": "u8"
+            },
+            {
+              "name": "isInitialized",
+              "type": "bool"
+            },
+            {
+              "name": "mintAccountAuthority",
+              "type": "publicKey"
+            },
+            {
+              "name": "adminAccountAuthority",
+              "type": "publicKey"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Deposit",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "bump",
+              "type": "u8"
+            },
+            {
+              "name": "isInitialized",
+              "type": "bool"
+            },
+            {
+              "name": "tokenAmount",
+              "type": "u64"
+            },
+            {
+              "name": "rewardTokenAmount",
+              "type": "u64"
+            },
+            {
+              "name": "rewardGovernanceTokenAmount",
+              "type": "u64"
+            },
+            {
+              "name": "rewardCoinAmount",
+              "type": "u64"
+            },
+            {
+              "name": "bank",
+              "type": "publicKey"
+            },
+            {
+              "name": "governanceBank",
+              "type": "publicKey"
+            },
+            {
+              "name": "authority",
+              "type": "publicKey"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Trove",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "bump",
+              "type": "u8"
+            },
+            {
+              "name": "solBump",
+              "type": "u8"
+            },
+            {
+              "name": "isInitialized",
+              "type": "bool"
+            },
+            {
+              "name": "isReceived",
+              "type": "bool"
+            },
+            {
+              "name": "isLiquidated",
+              "type": "bool"
+            },
+            {
+              "name": "borrowAmount",
+              "type": "u64"
+            },
+            {
+              "name": "lamportsAmount",
+              "type": "u64"
+            },
+            {
+              "name": "teamFee",
+              "type": "u64"
+            },
+            {
+              "name": "depositorFee",
+              "type": "u64"
+            },
+            {
+              "name": "amountToClose",
+              "type": "u64"
+            },
+            {
+              "name": "authority",
+              "type": "publicKey"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Fee",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "bump",
+              "type": "u8"
+            },
+            {
+              "name": "isInitialized",
+              "type": "bool"
+            },
+            {
+              "name": "solAmount",
+              "type": "u64"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Admin",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "bump",
+              "type": "u8"
+            },
+            {
+              "name": "authority",
+              "type": "publicKey"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Price",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "price",
+              "type": "i64"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Escrow",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "isInitialized",
+              "type": "bool"
+            },
+            {
+              "name": "initializerPubkey",
+              "type": "publicKey"
+            },
+            {
+              "name": "tempTokenAccountPubkey",
+              "type": "publicKey"
+            },
+            {
+              "name": "initializerTokenToReceiveAccountPubkey",
+              "type": "publicKey"
+            },
+            {
+              "name": "expectedAmount",
+              "type": "u64"
+            }
+          ]
+        }
+      }
+    ],
+    "types": [
+      {
+        "name": "NexfinError",
+        "type": {
+          "kind": "enum",
+          "variants": [
+            {
+              "name": "InvalidInstruction"
+            },
+            {
+              "name": "NotRentExempt"
+            },
+            {
+              "name": "ExpectedAmountMismatch"
+            },
+            {
+              "name": "AmountOverflow"
+            },
+            {
+              "name": "InvalidCollateral"
+            },
+            {
+              "name": "OnlyForAdmin"
+            },
+            {
+              "name": "TroveAlreadyLiquidated"
+            },
+            {
+              "name": "TroveIsNotInitialized"
+            },
+            {
+              "name": "TroveIsNotReceived"
+            },
+            {
+              "name": "OnlyForTroveOwner"
+            },
+            {
+              "name": "OnlyForDepositOwner"
+            },
+            {
+              "name": "InstructionUnpackError"
+            },
+            {
+              "name": "AlreadyInitialized"
+            },
+            {
+              "name": "InvalidMarketAuthority"
+            },
+            {
+              "name": "InvalidMarketOwner"
+            },
+            {
+              "name": "InvalidAccountOwner"
+            },
+            {
+              "name": "InvalidTokenOwner"
+            },
+            {
+              "name": "InvalidTokenAccount"
+            },
+            {
+              "name": "InvalidTokenMint"
+            },
+            {
+              "name": "InvalidTokenProgram"
+            },
+            {
+              "name": "InvalidAmount"
+            },
+            {
+              "name": "InvalidConfig"
+            },
+            {
+              "name": "InvalidSigner"
+            },
+            {
+              "name": "InvalidAccountInput"
+            },
+            {
+              "name": "MathOverflow"
+            },
+            {
+              "name": "TokenInitializeMintFailed"
+            },
+            {
+              "name": "TokenInitializeAccountFailed"
+            },
+            {
+              "name": "TokenTransferFailed"
+            },
+            {
+              "name": "TokenMintToFailed"
+            },
+            {
+              "name": "TokenBurnFailed"
+            },
+            {
+              "name": "InsufficientLiquidity"
+            },
+            {
+              "name": "ReserveCollateralDisabled"
+            },
+            {
+              "name": "ReserveStale"
+            },
+            {
+              "name": "WithdrawTooSmall"
+            },
+            {
+              "name": "AttemptToWithdrawTooMuch"
+            },
+            {
+              "name": "BorrowTooSmall"
+            },
+            {
+              "name": "BorrowTooLarge"
+            },
+            {
+              "name": "RepayTooSmall"
+            },
+            {
+              "name": "LiquidationTooSmall"
+            },
+            {
+              "name": "ObligationHealthy"
+            },
+            {
+              "name": "ObligationStale"
+            },
+            {
+              "name": "ObligationReserveLimit"
+            },
+            {
+              "name": "InvalidObligationOwner"
+            },
+            {
+              "name": "ObligationDepositsEmpty"
+            },
+            {
+              "name": "ObligationBorrowsEmpty"
+            },
+            {
+              "name": "ObligationDepositsZero"
+            },
+            {
+              "name": "ObligationBorrowsZero"
+            },
+            {
+              "name": "InvalidObligationCollateral"
+            },
+            {
+              "name": "InvalidObligationLiquidity"
+            },
+            {
+              "name": "ObligationCollateralEmpty"
+            },
+            {
+              "name": "ObligationLiquidityEmpty"
+            },
+            {
+              "name": "NegativeInterestRate"
+            },
+            {
+              "name": "InvalidOracleConfig"
+            },
+            {
+              "name": "InvalidFlashLoanReceiverProgram"
+            },
+            {
+              "name": "NotEnoughLiquidityAfterFlashLoan"
+            }
+          ]
+        }
+      },
+      {
+        "name": "PriceStatus",
+        "type": {
+          "kind": "enum",
+          "variants": [
+            {
+              "name": "Unknown"
+            },
+            {
+              "name": "Trading"
+            },
+            {
+              "name": "Halted"
+            },
+            {
+              "name": "Auction"
+            }
+          ]
+        }
+      },
+      {
+        "name": "CorpAction",
+        "type": {
+          "kind": "enum",
+          "variants": [
+            {
+              "name": "NoCorpAct"
+            }
+          ]
+        }
+      },
+      {
+        "name": "PriceType",
+        "type": {
+          "kind": "enum",
+          "variants": [
+            {
+              "name": "Unknown"
+            },
+            {
+              "name": "Price"
+            },
+            {
+              "name": "TWAP"
+            },
+            {
+              "name": "Volatility"
+            }
+          ]
+        }
+      }
+    ],
+    "metadata": {
+      "address": "HPwvr8B9KtM3CZwQg7V8pevfgsZfZBLiR3gL1HcEsGiD"
+    }
+  }
