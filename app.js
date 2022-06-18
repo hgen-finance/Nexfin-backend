@@ -26,12 +26,12 @@ app.use(
 
 app.use(cookieParser());
 
-app.use("/api/trove", troveRouter);
-app.use("/api/deposit", depositRouter);
-app.use("/api/reward", rewardRouter);
-app.use("/api/info", infoRouter);
+app.use("/trove", troveRouter);
+app.use("/deposit", depositRouter);
+app.use("/reward", rewardRouter);
+app.use("/info", infoRouter);
 //app.use("/notification", notificationRouter);
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
     res.send({});
 });
 
